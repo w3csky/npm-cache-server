@@ -1,5 +1,5 @@
 # npm-cache-server
-npm cache server
+npm 缓存服务，用于公司网络中缓存已安装的包，主要是tgz文件，方便同一个局域网内快速安装。
 
 ## 日志
 * 0.0.1  目前只支持 install info 这两个功能
