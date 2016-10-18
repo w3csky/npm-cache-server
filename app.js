@@ -9,22 +9,24 @@ const koaBody = require('koa-body');
 const request = require('request');
 const router = require('koa-router')();
 
+const config = require('./config.json');
 
-var port = 3345; //端口
-var npmRegistry = 'https://registry.npmjs.org'; //npm url
-var host = 'http://localhost:'+port;
-var cacheDir = './cache'; //缓存目录
+var port = config.port; //端口
+var npmRegistry = config.npmRegistry; //npm url
+var host = config.host+port;
+var cacheDir = config.cacheDir; //缓存目录
 
 /*
  @descrption: http 请求
+ @param {Object} options  请求参数
 */
 function getHttpCon(options){
     return new Promise(function(resolve, reject) {
         request(options,(error, response, body)=>{
             var result=body;
             if(!error){
+                //替换了 原有的npm库的url  让npm请求本地的url
                 result = result.replace(new RegExp(npmRegistry,'ig'),host);
-                //console.log(result);
                 resolve(result);
             }else{
                 reject(error);
@@ -36,7 +38,6 @@ function getHttpCon(options){
 
 /*路由规则*/
 router.get('/:name', function *(){
-    //console.log(this.request);
     var reqOpt = this.request;
 
 
@@ -45,32 +46,21 @@ router.get('/:name', function *(){
         url: npmRegistry+reqOpt.url,
         header: reqOpt.header
     };
-    
-    // var x = request(options,(error, response, body)=>{
-    //     var result=body;
-    //     if(!error){
-    //         result = result.replace(new RegExp(npmRegistry,'ig'),host);
-    //     }
-    //     this.body = result;
-    //     //console.log(response);
-    // });
-    //this.body = x;
 
     var result = yield getHttpCon(options);
     this.body = result;
 
 });
 router.get('/:name/-/:filename', function *(){
-    //console.log(this.request);
     var reqOpt = this.request;
     var filename = this.params.filename;
     var filePath = path.join(cacheDir,filename);
 
     var options,stream;
 
+    //判断是否存在缓存文件
     if(fs.existsSync(filePath)){
         stream = fs.createReadStream(filePath);
-        console.log('read')
     }else{
         options = {
             method: reqOpt.method,
@@ -90,17 +80,17 @@ router.get('/:name/-/:filename', function *(){
             mkdirp.sync(cacheDir);
         }
 
-        stream.pipe(fs.createWriteStream(filePath));
+        stream.pipe(fs.createWriteStream(filePath)); //写入文件
     }
-    
+
     this.body = stream;
 });
 
-//中间件
-function middleware(){
-    // console.log(this.request);
 
-    // yield next;
+/*
+ @description: 中间件
+*/
+function middleware(){
     return function *(next){
         console.log(this.request);
         yield next;//往下执行

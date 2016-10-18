@@ -1,0 +1,6 @@
+{
+    "host":"http://localhost",
+    "port":"3345",
+    "cacheDir":"./cache",
+    "npmRegistry":"https://registry.npmjs.org"
+}
