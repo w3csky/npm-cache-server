@@ -47,3 +47,17 @@
      connection: 'keep-alive'
   } 
 }
+{ 
+  method: 'GET',
+  url: '/-/all/since?stale=update_after&startkey=1475115100000',
+  header:
+  { 'accept-encoding': 'gzip',
+     version: '3.10.3',
+     accept: 'application/json',
+     referer: 'search koa',
+     'npm-session': '1c7a67007a94039d',
+     'user-agent': 'npm/3.10.3 node/v6.5.0 win32 x64',
+     host: 'localhost:3345',
+     connection: 'keep-alive' 
+  } 
+}
