@@ -80,5 +80,20 @@ module.exports = function(router){
 
         this.body = stream;
     });
-    
+
+
+    // 新增用户 测试中
+    router.put('/-/user/org.couchdb.user::name', function *(){
+        var reqOpt = this.request;
+        var _url = npmRegistry+reqOpt.url;
+        // console.log(this.params.name)
+        // console.log()
+        var stream = this.req.pipe(request.put(_url,function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+            console.log(body) // Show the HTML for the Google homepage.
+          }
+        }));
+
+        this.body = stream;
+    });
 }

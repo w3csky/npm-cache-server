@@ -1,6 +1,6 @@
 安装时
 
-{ 
+{
   method: 'GET',
   url: '/koa',
   header:
@@ -11,13 +11,13 @@
      'npm-session': '16db1c6c8c8b9ad0',
      'user-agent': 'npm/3.10.3 node/v6.5.0 win32 x64',
      host: 'localhost:3345',
-     connection: 'keep-alive' 
-  } 
+     connection: 'keep-alive'
+  }
 }
 
 
 查询时
-{ 
+{
   method: 'GET',
   url: '/koa',
   header:
@@ -28,12 +28,12 @@
      'npm-session': '4487e7ddd0fd76dc',
      'user-agent': 'npm/3.10.3 node/v6.5.0 win32 x64',
      host: 'localhost:3345',
-     connection: 'keep-alive' 
-  } 
+     connection: 'keep-alive'
+  }
 }
 
 搜索
-{ 
+{
   method: 'GET',
   url: '/-/all',
   header:
@@ -45,9 +45,9 @@
      'user-agent': 'npm/3.10.3 node/v6.5.0 win32 x64',
      host: 'localhost:3345',
      connection: 'keep-alive'
-  } 
+  }
 }
-{ 
+{
   method: 'GET',
   url: '/-/all/since?stale=update_after&startkey=1475115100000',
   header:
@@ -58,6 +58,25 @@
      'npm-session': '1c7a67007a94039d',
      'user-agent': 'npm/3.10.3 node/v6.5.0 win32 x64',
      host: 'localhost:3345',
-     connection: 'keep-alive' 
-  } 
+     connection: 'keep-alive'
+  }
+}
+
+添加用户
+{
+  method: 'PUT',
+  url: '/-/user/org.couchdb.user:subying',
+  header:
+  {
+    'accept-encoding': 'gzip',
+    version: '3.8.9',
+    accept: 'application/json',
+    referer: 'adduser',
+    'npm-session': '60c481ef23cc6327',
+    'user-agent': 'npm/3.8.9 node/v6.2.0 win32 x64',
+    host: 'localhost:3345',
+    'content-type': 'application/json',
+    'content-length': '171',
+    connection: 'keep-alive'
+  }
 }
